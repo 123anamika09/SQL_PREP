@@ -1,0 +1,6 @@
+SELECT emp_id, name, department, salary
+FROM employees
+WHERE salary > 50000
+  AND department = 'Engineering'
+ORDER BY salary DESC
+LIMIT 5;
