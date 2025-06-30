@@ -1,0 +1,42 @@
+
+CREATE TABLE Students (
+    student_id INT PRIMARY KEY,
+    student_name VARCHAR(100)
+);
+CREATE TABLE Courses (
+    course_id INT PRIMARY KEY,
+    student_id INT,
+    course_name VARCHAR(100)
+);
+
+
+------------------------------------------------------------------inserting into table------------------------------------------------------
+INSERT INTO Students VALUES (1, 'Anamika');
+INSERT INTO Students VALUES (2, 'Ankit');
+INSERT INTO Students VALUES (3, 'Aniket');
+
+INSERT INTO Courses VALUES (101, 1, 'Math');
+INSERT INTO Courses VALUES (102, 1, 'Science');
+INSERT INTO Courses VALUES (103, 2, 'History');
+
+--------------------------------------------------------------------Inner Join----------------------------------------------------------------
+SELECT s.student_name, c.course_name
+FROM Students s
+INNER JOIN Courses c ON s.student_id = c.student_id;
+--------------------------------------------------------------------LEFT JOIN------------------------------------------------------------------
+SELECT s.student_name, c.course_name
+FROM Students s
+LEFT JOIN Courses c ON s.student_id = c.student_id;
+--------------------------------------------------------------------RIGHT JOIN ---------------------------------------------------------------
+SELECT s.student_name, c.course_name
+FROM Students s
+RIGHT JOIN Courses c ON s.student_id = c.student_id;
+-------------------------------------------------------------------FULL JOIN -------------------------------------------------------------------
+
+SELECT s.student_name, c.course_name
+FROM Students s
+LEFT JOIN Courses c ON s.student_id = c.student_id
+UNION
+SELECT s.student_name, c.course_name
+FROM Students s
+RIGHT JOIN Courses c ON s.student_id = c.student_id;
