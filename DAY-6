@@ -1,0 +1,46 @@
+ 1. Scalar Subquery -- A subquery that returns a single value (one row, one column).
+SELECT name, salary
+FROM Employees
+WHERE salary > (
+    SELECT AVG(salary)
+    FROM Employees
+);
+
+
+2. Correlated Subquery -- A subquery that refers to a column from the outer query.
+SELECT e1.name, e1.salary
+FROM Employees e1
+WHERE salary > (
+    SELECT AVG(e2.salary)
+    FROM Employees e2
+    WHERE e1.dept_id = e2.dept_id
+);
+
+
+3.Subquery with IN
+SELECT name
+FROM Employees
+WHERE dept_id IN (
+    SELECT dept_id
+    FROM Departments
+    WHERE location = 'Delhi'
+);
+
+
+4. Subquery with EXISTS
+SELECT name
+FROM Employees e
+WHERE EXISTS (
+    SELECT 1
+    FROM Departments d
+    WHERE d.dept_id = e.dept_id AND d.location = 'Delhi'
+);
+5. Subquery with = (Scalar again)   
+
+SELECT name
+FROM Employees
+WHERE dept_id = (
+    SELECT dept_id
+    FROM Departments
+    WHERE dept_name = 'HR'
+);
