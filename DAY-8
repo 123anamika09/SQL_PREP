@@ -1,0 +1,39 @@
+-------------------------------------------------------------------------1.Use CREATE PROCEDURE and CREATE FUNCTION
+-------------------------------------------------------------------------2.Use parameters and conditional logic
+
+
+CREATE FUNCTION getGrade(marks INT)
+RETURNS VARCHAR(2)
+DETERMINISTIC
+BEGIN
+    DECLARE grade VARCHAR(2);
+    
+    IF marks >= 90 THEN
+        SET grade = 'A';
+    ELSEIF marks >= 75 THEN
+        SET grade = 'B';
+    ELSEIF marks >= 60 THEN
+        SET grade = 'C';
+    ELSEIF marks >= 50 THEN
+        SET grade = 'D';
+    ELSE
+        SET grade = 'F';
+    END IF;
+    RETURN grade;
+END;
+CREATE PROCEDURE CheckStudentGrade(IN sid INT)
+BEGIN
+    DECLARE studentName VARCHAR(100);
+    DECLARE studentMarks INT;
+    DECLARE grade VARCHAR(2);
+
+    SELECT name, marks INTO studentName, studentMarks
+    FROM Students
+    WHERE student_id = sid;
+
+    SET grade = getGrade(studentMarks);
+
+    SELECT CONCAT('Student ', studentName, ' has grade: ', grade) AS Result;
+END;
+DELIMITER ;
+CALL CheckStudentGrade(1);
